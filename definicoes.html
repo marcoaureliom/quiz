@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Definições</title>
+    <meta name="description" content="Descubra sua classificação com perguntas e respostas.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+	html, button, input {
+	  color: #222;
+	}
+	body {
+	  font-size: 1em;
+	  line-height: 1.4;
+	}
+	#container {
+	  margin: auto;
+	  max-width: 640px;
+	  padding: 0 15px;
+	}
+</style>
+	
+  </head>
+  <body>
+    <div id="container">
+      <h1>Definições</h1>
+      <p>Escolha a opção que você mais se identifica, conforme a pergunta.</p>
+      <div id="content">
+        <h3 id="question"></h3>
+        <div id="choices"></div>
+        <p><button id="submit"></button></p>
+		<p id="instructions"></p>
+        <p id="partialResult"></p>
+      </div>
+    </div>
+    <script>
+	var quiz = [{
+	  "question": "A",
+	  "choices": ["Internet Provider", "Internet Port", "Internet Protocol"],
+	  "instructions" : "A",
+	  "partialResult" : "",
+	  "id" : 1,
+	  "proxNodeId": 2	  
+	}, {
+	  "question": "AA",
+	  "choices": ["Bill Gates", "Steve Jobs", "Steve Wozniak"],
+	  "instructions" : "A",
+	  "partialResult" : "",
+	  "id" : 2,
+	  "proxNodeId": 5
+	}, {
+	  "question": "AB",
+	  "choices": ["8 bits", "64 bits", "1024 bits"],
+	  "instructions" : "A",
+	  "partialResult" : "",
+	  "id" : 3,
+	  "proxNodeId": 0
+	}, {
+	  "question": "AC",
+	  "choices": ["Brendan Eich", "Dennis Ritchie", "Guido van Rossum"],
+	  "instructions" : "A",
+	  "partialResult" : "",
+	  "id" : 4,
+	  "proxNodeId": 0
+	}, {
+	  "question": "AAA",
+	  "choices": ["Bill Gates", "Steve Jobs", "Steve Wozniak"],
+	  "instructions" : "A",
+	  "partialResult" : "",
+	  "id" : 5,
+	  "proxNodeId": 0
+	}, {
+	  "question": "AAB",
+	  "choices": ["Bill Gates", "Steve Jobs", "Steve Wozniak"],
+	  "instructions" : "A",
+	  "partialResult" : "",
+	  "id" : 6,
+	  "proxNodeId": 0
+	},{
+	  "question": "B",
+	  "choices": ["Carbon Copy", "Creative Commons", "other"],
+	  "instructions" : "A",
+	  "partialResult" : "",
+	  "id" : 7,
+	  "proxNodeId": 8
+	}, {
+	  "question": "BA",
+	  "choices": ["Carbon Copy", "Creative Commons", "other"],
+	  "instructions" : "A",
+	  "partialResult" : "",
+	  "id" : 8,
+	  "proxNodeId": 0
+	}, {
+	  "question": "BB",
+	  "choices": ["Carbon Copy", "Creative Commons", "other"],
+	  "instructions" : "A",
+	  "partialResult" : "",
+	  "id" : 9,
+	  "proxNodeId": 0
+	}, {
+	  "question": "BC",
+	  "choices": ["Carbon Copy", "Creative Commons", "other"],
+	  "instructions" : "A",
+	  "partialResult" : "",
+	  "id" : 10,
+	  "proxNodeId": 0
+	}];
+
+
+	//Definir elementos
+	var content = $("content"),
+	  questionContainer = $("question"),
+	  choicesContainer = $("choices"),
+	  instructionsContainer = $("instructions"),
+	  partialResultContainer = $("partialResult"),
+	  submitBtn = $("submit");
+
+	//Iniciar variáveis
+	var currentQuestion = 0, //Informa o número da atual questão, mas não o real número: é apenas enfeite
+	  partialResult = "", //String para guardar todas as respostas
+	  askingQuestion = true, //Informa se está mostrando resultados parciais ou não
+	  theEnd = false, //Informa o fim do quiz
+	  indice = [1, 7],//Os Ids das raizes/perguntas
+	  raiz = 0, //Id da primeira raiz-1 (se for 1, então coloque 0)
+	  q = 0, //Id-1 da pergunta 
+	  alphabet = ['a','b','c','d','e','f']; //Array de alternativas possíveis
+	
+	function $(id) { //Um atalho para document.getElementById
+	  return document.getElementById(id);
+	}
+ 
+	function askQuestion() {
+	 
+	  var choices = quiz[q].choices, choicesHtml = "";
+
+	  //Criar os radio botões
+	  for (var i = 0; i < choices.length; i++) {
+		choicesHtml += "<input type='radio' name='quiz" + currentQuestion +
+		  "' id='choice" + (i + 1) +
+		  "' value='" + choices[i] + "' CHECKED>" +
+		  " <label for='choice" + (i + 1) + "'>" + choices[i] + "</label><br>";
+	  }
+
+	  //Carregar questão
+	  questionContainer.textContent = (currentQuestion + 1) + ") " + quiz[q].question;
+
+	  //Carregar alternativas
+	  choicesContainer.innerHTML = choicesHtml;
+	  
+	  //Carregar instruções
+	  instructionsContainer.textContent = quiz[q].instructions;
+
+	  //Primeira vez
+	  if (currentQuestion === 0) {
+		partialResultContainer.textContent = "Responda à primeira questão para ir para a segunda. ;)";
+		submitBtn.textContent = "Enviar resposta";
+	  }
+	}
+
+	function checkAnswer() {
+	
+	  //Se estamos na questão ou indo para a próxima
+	  if (askingQuestion) {
+		submitBtn.textContent = "Próxima pergunta";
+		askingQuestion = false;
+
+		//Encontrar qual botão radio foi clicado
+		var radios = document.getElementsByName("quiz" + currentQuestion);
+		
+		for (var i = 0; i < radios.length; i++) {
+		  radios[i].disabled = true;
+		  if (radios[i].checked) { //Se este radio botão foi clicado
+			partialResult+=quiz[q].id + alphabet[i];//Guardar resposta
+			if(quiz[q].proxNodeId == 0){//Se é uma folha da estrutura de árvore
+				raiz++;
+				if (raiz < indice.length){//Se ainda há raizes
+					q=indice[raiz]-1; 
+				}else theEnd = true; //Não, esta foi a última raiz, logo o quiz acabou
+			}else {
+				q=quiz[q].proxNodeId+i-1; //Setar a próxima questão
+			}
+			
+		  }
+		
+		}
+		
+		partialResultContainer.textContent = "Você até agora se define: " + quiz[q].partialResult + ".";
+		  
+	  } else { //Próxima questão
+		
+		askingQuestion = true; //Próxima questão
+		submitBtn.textContent = "Enviar resposta"; //Mudar texto do botão
+		//Se não acabou o quiz, vamos para a próxima pergunta
+		if (!theEnd) {
+		  currentQuestion++;
+		  askQuestion();
+		} else {
+		  showFinalResults();
+		}
+	  }
+	}
+
+	function showFinalResults() {
+	  content.innerHTML = "<h2>Você completou o Quiz!</h2>" +
+		"<h2>Aparentemente sua classificação é:</h2>" +
+		"<h2>" + quiz[q].partialResult + "</h2>"+
+		"<p>Se você encontrou algum problema, por favor me envie a seguinte sequência: " + partialResult + ".</p>";
+	}
+
+	window.addEventListener("load", askQuestion, false);
+	submitBtn.addEventListener("click", checkAnswer, false);
+
+	</script>
+   
+  </body>
+</html>
