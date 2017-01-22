@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Definições</title>
+    <meta name="description" content="Descubra sua classificação com perguntas e respostas.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+	html {
+	  font-family: arial,sans-serif;
+	  font-size: 1.3em;
+	  font-weight: 700;
+	  color: #fff;
+	  background-color: #9a5392;
+	}
+	body {
+	  line-height: 1.4;
+	}
+	button {
+	color: #333;
+    text-transform: uppercase;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 15px 24px;
+    background: #fff;
+    display: inline-block;
+	border: 0;
+	
+	}
+	button:focus {
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+	} 
+	button:hover {
+	cursor: pointer;
+	}
+	#choices {
+	margin-left: 7%;
+	}
+	#container {
+	  margin: auto;
+	  max-width: 640px;
+	  padding: 0 15px;
+	}
+	.description, .title{
+	color: #291d1d;
+	}
+	/*Personalização dos radios*/
+	.section input[type="radio"]{
+		display: none;
+	}
+	.container label {
+		position: relative;
+	}
+	.container span::before,
+	.container span::after {
+	  content: '';
+	  position: absolute;
+	  top: 0;
+	  bottom: 0;
+	  margin: auto;
+	}
+	.container span.radio:hover {
+	  cursor: pointer;
+	}
+	.container span.radio::before {
+	  left: -52px;
+	  width: 45px;
+	  height: 25px;
+	  background-color: #A8AAC1;
+	  border-radius: 50px;
+	}
+	.container span.radio::after {
+	  left: -49px;
+	  width: 17px;
+	  height: 17px;
+	  border-radius: 10px;
+	  background-color: #6C788A;
+	  transition: left .25s, background-color .25s;
+	}
+	input[type="radio"]:checked + label span.radio::after {
+	  left: -27px;
+	  background-color: #EBFF43;
+	}
+</style>
+	
+  </head>
+  <body>
+    <div id="container">
+      <center><h1 class="title">Definições</h1></center>
+      <p class="description"> Descubra com qual das classificações da Assexualidade você melhor se encaixa.</p>
+      <div id="content">
+        <div id="question"></div><br />
+        <section id="first" class="section">
+			<div id="choices"></div>
+		</section>
+        <p><button id="submit"></button></p>
+		<p id="instructions"></p>
+        <p id="partialResult"></p>
+      </div>
+    </div>
+    <script>
+	var quiz = [{
+	  "question": "Para começarmos, considere as seguintes afirmações: <br />"+ 
+	  "a. 'A assexualidade é uma doença, e não uma orientação sexual possível a indivíduos saudáveis.'<br />"+ 
+	  "b. 'Assexual só é aquele que nunca fez sexo.'<br />"+  
+      "c. 'Pessoas assexuais não se masturbam.<br />"+  
+      "d. 'Sexo é impuro e sujo e/ou uma sociedade melhor seria aquela que ninguém fizesse sexo.'<br />"+  
+      "Agora escolha a opção com que você mais concorda referente às afirmações acima:",
+	  "choices": ["Concordo com todas estas afirmações. ", "Concordo com algumas destas, como a (a), mas não todas.", "Concordo absolutamente em nada com a afirmação (a), mas tenho dúvidas quanto a (b) e (c) e concordo parcial ou completamente com (d).", "Concordo apenas com as afirmações (b) e (c). ", "Não concordo com absolutamente nenhuma afirmação."],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 1,
+	  "proxNodeId": [10, 10, 2, 2, 3]	  
+	}, {
+	  "question": "Considerando suas experiências pessoais, para você, por que um assexual não faria sexo?",
+	  "choices": ["Porque sexo é algo completamente primitivo e/ou frustrante, e assexualidade é algo superior a isso. ","Porque é errado e inadequado e/ou porque ele nunca se apaixona ou viveu uma relação antes. ","Porque ele não tem desejo sexual (libido), e só por isso. ", "Porque ele não sente atração sexual, e só por isso.", "Porque ele não tem desejo sexual e não sente atração sexual."],
+	  "instructions" : "Desejo sexual é diferente de atração sexual. Uma prova disto é que assexuais podem se masturbar e, inclusive, se interessar por pornografia.<br />A libido sexual não define sexualidade ou assexualidade. Baixa libido é um problema de saúde, e um médico deve ser consultado caso ela cause perturbação.<br />Atração sexual é o que leva uma pessoa querer fazer sexo com outra(a).",
+	  "partialResult" : "",
+	  "id" : 2,
+	  "proxNodeId": [10, 4, 23, 3, 3]
+	}, {
+	  "question": "Você sente ou já sentiu atração sexual? ",
+	  "choices": ["Sim, sempre.", "Não, nunca.", "Sim, às vezes.", "Sim e não, depende do meu envolvimento com a pessoa, como por exemplo se eu a conheço há um (bom) tempo."],
+	  "instructions" : "Atração sexual: é o que leva uma pessoa querer fazer sexo com outra(a).",
+	  "partialResult" : "",
+	  "id" : 3,
+	  "proxNodeId": [12, 5, 6, 7]
+	}, {
+	  "question": "Sobre as afirmações abaixo, com qual você concorda? <br />"+
+	  "1. 'Sexo é algo errado e inadequado.'<br />"+ 
+	  "2. 'Assexual só é aquele que nunca beijou ou viveu um relacionamento antes.'<br />"+
+	  "3. 'Assexual só é aquele que nunca se apaixona.'",
+	  "choices": ["Concordo só com (1).", "Concordo só com (2).", "Concordo só com (3).","Concordo só com (2) e (3).","Concordo com todas."],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 4,
+	  "proxNodeId": [10, 11, 11, 11, 11]
+	}, {
+	  "question": "Para você, o que melhor define 'atração sexual'?",
+	  "choices": ["Atração sexual é um impulso que faz as pessoas quererem fazer sexo com outra(s), e só isso.", "Atração sexual é o que faz pessoas se excitarem sexualmente, e só isso.", "As alternativas A e B se complementam e definem ao mesmo tempo atração sexual."],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 5,
+	  "proxNodeId": [26, 9, 9]
+	}, {
+	  "question": "Para você, o que melhor define 'atração sexual'?",
+	  "choices": ["Atração sexual é um impulso que faz as pessoas quererem fazer sexo com outra(s), e só isso.", "Atração sexual é o que faz pessoas se excitarem sexualmente, e só isso.", "As alternativas A e B se complementam e definem ao mesmo tempo atração sexual."],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 6,
+	  "proxNodeId": [21, 15, 15]
+	}, {
+	  "question": "Para você, o que melhor define 'atração sexual'?",
+	  "choices": ["Atração sexual é um impulso que faz as pessoas quererem fazer sexo com outra(s), e só isso.", "Atração sexual é o que faz pessoas se excitarem sexualmente, e só isso.", "As alternativas A e B se complementam e definem ao mesmo tempo atração sexual."],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 7,
+	  "proxNodeId": [22, 9, 9]
+	}, {
+	  "question": "",
+	  "choices": [],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 8,
+	  "proxNodeId": 0
+	}, {
+	  "question": "Como você se sente quando não pratica sexo ou não sente desejo em praticar?",
+	  "choices": ["Ótimo, e acho normal. Mas ficaria triste se isso magoasse alguém.", "Mais ou menos. Gostaria de poder fazer sexo e sentir esse desejo às vezes.", "Péssimo. Sinto frustração e até desânimo. "],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 9,
+	  "proxNodeId": [17, 20, 18]
+	}, {
+	  "question": "Você possui uma visão negativa e patológica do sexo. Não há como antes saber se você é ou não assexual.<br/>Você deseja tentar descobrir sua classificação romântica?",
+	  "choices": [],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 10,
+	  "proxNodeId": 0
+	},{
+	  "question": "Você provavelmente não é assexual, no entando, talvez você seja arromântico ou demirromântico. Se você respondeu que concorda com todas as afirmações, considere uma ajuda médica.",
+	  "choices": [],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 11,
+	  "proxNodeId": 0
+	}, {
+	  "question": "Você não é assexual neste quiz.",
+	  "choices": [],
+	  "instructions" : "Assexual pode ser definido como 'pessoa que não tem interesse na prática sexual com outra pessoa', ao mesmo tempo que esse desinteresse não é escolha nem patologia, como baixo desejo sexual.",
+	  "partialResult" : "",
+	  "id" : 12,
+	  "proxNodeId": 0
+	}, {
+	  "question": "",
+	  "choices": [],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 13,
+	  "proxNodeId": 0
+	}, {
+	  "question": "",
+	  "choices": [],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 14,
+	  "proxNodeId": 0
+	}, {
+	  "question": "Como você se sente quando não pratica sexo ou não sente desejo em praticar?",
+	  "choices": ["Ótimo, e acho normal. Mas ficaria triste se isso magoasse alguém.", "Mais ou menos. Gostaria de poder fazer sexo e sentir esse desejo às vezes.", "Péssimo. Sinto frustração e até desânimo. "],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 15,
+	  "proxNodeId": [16, 19, 18]
+	}, {
+	  "question": "Você provavelmente é assexual gray-a, pois se sente bem não fazendo sexo às vezes. No entanto, você possui indícios de baixa libido, o que um médico poderia lhe ajudar. (Lembre-se, assexualidade não é causa de baixa libido.)",
+	  "choices": [],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 16,
+	  "proxNodeId": 0
+	}, {
+	  "question": "Você provavelmente é assexual, pois se sente bem não fazendo sexo. No entanto, você possui indícios de baixa libido, o que um médico poderia lhe ajudar. (Lembre-se, assexualidade não é causa de baixa libido.) Como você nunca sentiu atração sexual antes, não o(a) classificaremos como gray-a ou demissexual neste quiz.",
+	  "choices": [],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 17,
+	  "proxNodeId": 0
+	}, {
+	  "question": "Você provavelmente não é assexual. Assexualidade não tem como causa a baixa libido. ",
+	  "choices": [],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 18,
+	  "proxNodeId": 0
+	},{
+	  "question": "Considere esta definição de uma classificação da assexualidade: <br /> 'Pessoa que pode sentir atração sexual, desde que esteja em um relacionamento afetivo profundo com alguém.' <br />Você se identifica com a definição acima?",
+	  "choices": ["Sim", "Não"],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 19,
+	  "proxNodeId": [25, 24]
+	}, {
+	  "question": "Considere esta definição de uma classificação da assexualidade: <br /> 'Pessoa que sente, às vezes, atração sexual; não dependendo desenvolver um relacionamento afetivo profundo para que isso aconteça.' <br />Você se identifica com a definição acima?",
+	  "choices": ["Sim", "Não"],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 20,
+	  "proxNodeId": [24, 25]
+	},{
+	  "question": "Considere esta definição de uma classificação da assexualidade: <br /> 'Pessoa que sente, às vezes, atração sexual; não dependendo desenvolver um relacionamento afetivo profundo para que isso aconteça.' <br />Você se identifica com a definição acima?",
+	  "choices": ["Sim", "Não"],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 21,
+	  "proxNodeId": [24, 15]
+	},{
+	  "question": "Considere esta definição de uma classificação da assexualidade: <br /> 'Pessoa que sente, às vezes, atração sexual; não dependendo desenvolver um relacionamento afetivo profundo para que isso aconteça.' <br />Você se identifica com a definição acima?",
+	  "choices": ["Sim", "Não"],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 22,
+	  "proxNodeId": [24, 9]
+	},{
+	  "question": "Para você, o que melhor define 'atração sexual'?",
+	  "choices": ["Atração sexual é um impulso que faz as pessoas quererem fazer sexo com outra(s), e só isso.", "Atração sexual é o que faz pessoas se excitarem sexualmente, e só isso.", "As alternativas A e B se complementam e definem ao mesmo tempo atração sexual."],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 23,
+	  "proxNodeId": [3, 18, 18]
+	},{
+	  "question": "Você parece ser Assexual Gray-a!",
+	  "choices": [],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 24,
+	  "proxNodeId": 0
+	}, {
+	  "question": "Você parece ser Assexual Demissexual!",
+	  "choices": [],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 25,
+	  "proxNodeId": 0
+	}, {
+	  "question": "Você parece ser Assexual. Como nunca sentiu atração sexual antes, não o(a) consideraremos gray-a nem demissexual.",
+	  "choices": [],
+	  "instructions" : "Gray-a: 'Pessoa que sente, às vezes, atração sexual; não dependendo desenvolver um relacionamento afetivo profundo para que isso aconteça.' <br />Demissexual: 'Pessoa que pode sentir atração sexual, desde que esteja em um relacionamento afetivo profundo com alguém.'",
+	  "partialResult" : "",
+	  "id" : 26,
+	  "proxNodeId": 0
+	},{
+	  "question": "Romanticidade. Aqui começa o próximo quiz, agora sobre romanticidade.",
+	  "choices": [],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 27,
+	  "proxNodeId": [0]
+	}
+	];
+
+
+	//Definir elementos
+	var content = $("content"),
+	  questionContainer = $("question"),
+	  choicesContainer = $("choices"),
+	  instructionsContainer = $("instructions"),
+	  partialResultContainer = $("partialResult"),
+	  submitBtn = $("submit");
+
+	//Iniciar variáveis
+	var currentQuestion = 0, //Informa o número da atual questão, mas não o real número: é apenas enfeite
+	  partialResult = "", //String para guardar todas as respostas
+	  askingQuestion = true, //Informa se está mostrando resultados parciais ou não
+	  theEnd = false, //Informa o fim do quiz
+	  indice = [1, 27],//Os Ids das raizes/perguntas
+	  raiz = 0, //Id da primeira raiz-1 (se for o 1º, então coloque 0)
+	  q = 0, //Id-1 da pergunta 
+	  alphabet = ['a','b','c','d','e','f', 'g']; //Array de alternativas possíveis
+	
+	function $(id) { //Um atalho para document.getElementById
+	  return document.getElementById(id);
+	}
+ 
+	function askQuestion() {
+	 
+	  var choices = quiz[q].choices, choicesHtml = "";
+
+	  //Criar os radio botões
+	  for (var i = 0; i < choices.length; i++) {
+		choicesHtml += "<div class='container'>" +
+		  "<input type='radio' name='quiz" + currentQuestion + 
+		  "' id='choice"  + (i + 1) + "' CHECKED>" +
+		  "<label for='choice" + (i + 1) + "'><span class='radio'>" + choices[i] + "</span></label></div><br />";
+    
+	  }
+
+	  //Carregar questão
+	  questionContainer.innerHTML = (currentQuestion + 1) + ") " + quiz[q].question;
+	  
+	  //Carregar alternativas
+	  choicesContainer.innerHTML = choicesHtml;
+	  
+	  //Carregar instruções
+	  instructionsContainer.innerHTML = quiz[q].instructions;
+
+	  //Primeira vez
+	  if (currentQuestion == 0) {
+		//partialResultContainer.textContent = "Responda à primeira questão para ir para a segunda. ;)";
+		submitBtn.textContent = "Enviar resposta";
+	  }
+	}
+
+	function checkAnswer() {
+	
+	  //Se estamos na questão ou indo para a próxima
+	  if (askingQuestion) {
+		submitBtn.textContent = "Próxima pergunta";
+		askingQuestion = false;
+
+		//Encontrar qual botão radio foi clicado
+		var radios = document.getElementsByName("quiz" + currentQuestion);
+		
+		if (radios.length == 0){ //Se não há opções na tela. Significa que existe um resultado.
+		raiz++;
+		if (raiz < indice.length){//Se ainda há raizes
+			q=indice[raiz]-1; 
+		}else theEnd = true; //Não, esta foi a última raiz, logo o quiz acabou
+		}else {
+			for (var i = 0; i < radios.length; i++) {
+			  radios[i].disabled = true;
+			  if (radios[i].checked) { //Se este radio botão foi clicado
+				partialResult+=quiz[q].id + alphabet[i];//Guardar resposta
+				
+				if(quiz[q].proxNodeId == 0){//Se é uma folha da estrutura de árvore
+					raiz++;
+					if (raiz < indice.length){//Se ainda há raizes
+						q=indice[raiz]-1; 
+					}else theEnd = true; //Não, esta foi a última raiz, logo o quiz acabou
+				}else {
+					q=quiz[q].proxNodeId[i]-1; //Setar a próxima questão
+				}
+				
+			  }
+			
+			}
+		}
+		//partialResultContainer.textContent = "Você até agora se define: " + quiz[q].partialResult + ".";
+		  
+	  } else { //Próxima questão
+		
+		askingQuestion = true; //Próxima questão
+		submitBtn.textContent = "Enviar resposta"; //Mudar texto do botão
+		//Se não acabou o quiz, vamos para a próxima pergunta
+		if (!theEnd) {
+		  currentQuestion++;
+		  askQuestion();
+		} else {
+		  showFinalResults();
+		}
+	  }
+	}
+
+	function showFinalResults() {
+	  content.innerHTML = "<h2>Você completou o Quiz!</h2>"+
+		"<p>Se você encontrou algum problema, por favor me envie a seguinte sequência: " + partialResult + ".</p>";
+	}
+
+	window.addEventListener("load", askQuestion, false);
+	submitBtn.addEventListener("click", checkAnswer, false);
+
+	
+	</script>
+   
+  </body>
+</html>
