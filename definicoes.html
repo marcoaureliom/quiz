@@ -50,6 +50,11 @@
 	.description, .title{
 	color: #291d1d;
 	}
+	a, a:hover, a:visited {
+    text-decoration: none;
+    color: #291d1d;
+    cursor: pointer;
+	}
 	/*Personalização dos radios*/
 	.section input[type="radio"]{
 		display: none;
@@ -99,9 +104,9 @@
         <section id="first" class="section">
 			<div id="choices"></div>
 		</section>
-        <p><button id="submit"></button></p>
 		<p id="instructions"></p>
         <p id="partialResult"></p>
+		<p><button id="submit"></button></p>
       </div>
     </div>
     <script>
@@ -228,7 +233,7 @@
 	}, {
 	  "question": "Você provavelmente é assexual, pois se sente bem não fazendo sexo. No entanto, você possui indícios de baixa libido, o que um médico poderia lhe ajudar. (Lembre-se, assexualidade não é causa de baixa libido.) Como você nunca sentiu atração sexual antes, não o(a) classificaremos como gray-a ou demissexual neste quiz.",
 	  "choices": [],
-	  "instructions" : "",
+	  "instructions" : "Gray-a: 'Pessoa que sente, às vezes, atração sexual; não dependendo desenvolver um relacionamento afetivo profundo para que isso aconteça.' <br />Demissexual: 'Pessoa que pode sentir atração sexual, desde que esteja em um relacionamento afetivo profundo com alguém.'",
 	  "partialResult" : "",
 	  "id" : 17,
 	  "proxNodeId": 0
@@ -296,12 +301,88 @@
 	  "id" : 26,
 	  "proxNodeId": 0
 	},{
-	  "question": "Romanticidade. Aqui começa o próximo quiz, agora sobre romanticidade.",
-	  "choices": [],
+	  "question": "Romanticidade. Aqui começa o próximo quiz, agora sobre romanticidade.<br />"+
+	  "Você já se apaixonou ou desejou relacionar-se afetivamente com alguém num nível diferente de amizade?",
+	  "choices": ["Sim.","Não.","Não sei."],
 	  "instructions" : "",
 	  "partialResult" : "",
 	  "id" : 27,
-	  "proxNodeId": [0]
+	  "proxNodeId": [28,29,29]
+	},{
+	  "question": "Sobre essa pessoa com quem você desejou se relacionar ou se apaixonou... Você a conhecia bem? ",
+	  "choices": ["Sim.","Não.","Mais ou menos."],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 28,
+	  "proxNodeId": [32,31,32]
+	},{
+	  "question": " Se algum dia lhe surgisse uma pessoa 'tudo a ver' contigo, você consideraria namorar essa pessoa? Você se identifica completamente com qual dos textos abaixo?<br />"+
+	  "1. Pessoa que (também) vive bem sem atração ou ligação romântica com outras pessoas. <br />"+ 
+	  "2. Pessoa que só às vezes experiencia atração ou ligação romântica com outras pessoas, não precisando conhecer esta bem.<br />"+
+	  "Selecione a alternativa que responda, na ordem, às duas perguntas.",
+	  "choices": ["Sim. (2).", "Sim. (1).","Não. (1).","Sim. Nenhum dos textos. ","Não sei bem e não concordo com nenhuma das outras alternativas."],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 29,
+	  "proxNodeId": [34,36,35,33,30]
+	},{
+	  "question": "Tudo bem, nem sempre sabemos. Mas suponha agora que você deseje se relacionar romanticamente com alguém. Se essa pessoa em algum momento demonstrar também estar 'a fim' de você, como você lidaria com esta situação?",
+	  "choices": ["Acho que me desapaixonaria na hora.","Acho que lidaria bem. Ficaria com a pessoa, talvez.","Não acho que eu teria me apaixonado. Então não sei responder.","Isso depende. Eu só me apaixonaria se eu conhecesse muito bem essa pessoa e já tivesse ligação emocional. Assim, anos ou meses antes."],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 30,
+	  "proxNodeId": [37,34,35,36]
+	},{
+	  "question": "Você já passou por períodos que gostaria de se relacionar com alguém e períodos que não gostaria? Se sim, você se identifica completamente com o texto abaixo?<br />"+
+	  "'Pessoa que só às vezes experiencia atração ou ligação romântica com outras pessoas, não precisando conhecer esta bem.'"+
+	  "Responda a alternativa que responda, na ordem, às duas perguntas.",
+	  "choices": ["Sim e sim.","Sim e não.","Não e não."],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 31,
+	  "proxNodeId": [34,33,33]
+	},{
+	  "question": " Você viveria bem se não namorasse alguém?",
+	  "choices": ["Não. Eu definitivamente quero namorar alguém.","Sim e não. Às vezes não sinto tanta necessidade disso.","Sim. Viveria muito bem. Apenas acredito que em algum momento teria essa necessidade. Mas, definitivamente, depende dos laços que eu já tiver com a pessoa.","Sim e não. Eu só gostaria de me apaixonar."],
+	  "instructions" : "",
+	  "partialResult" : "",
+	  "id" : 32,
+	  "proxNodeId": [31,31,29,37]
+	},{
+	  "question": "Você parece ser também Romântico(a)!",
+	  "choices": [],
+	  "instructions" : "Conheça melhor sua classificação neste <a href='http://assexualidade.forumeiros.com/t174-arromantismo-gray-a-e-demissexualidade'>link.</a>",
+	  "partialResult" : "",
+	  "id" : 33,
+	  "proxNodeId": 0
+	},{
+	  "question": "Você parece ser também Gray-romântico(a)!",
+	  "choices": [],
+	  "instructions" : "Conheça melhor sua classificação neste <a href='http://assexualidade.forumeiros.com/t174-arromantismo-gray-a-e-demissexualidade'>link.</a>",
+	  "partialResult" : "",
+	  "id" : 34,
+	  "proxNodeId": 0
+	},{
+	  "question": "Você parece ser também Arromântico(a)!",
+	  "choices": [],
+	  "instructions" : "Conheça melhor sua classificação neste <a href='http://assexualidade.forumeiros.com/t174-arromantismo-gray-a-e-demissexualidade'>link.</a>",
+	  "partialResult" : "",
+	  "id" : 35,
+	  "proxNodeId": 0
+	},{
+	  "question": "Você parece ser também Demirromântico(a)!",
+	  "choices": [],
+	  "instructions" : "Conheça melhor sua classificação neste <a href='http://assexualidade.forumeiros.com/t174-arromantismo-gray-a-e-demissexualidade'>link.</a>",
+	  "partialResult" : "",
+	  "id" : 36,
+	  "proxNodeId": 0
+	},{
+	  "question": "Você parece ser também Aporromântico(a)!",
+	  "choices": [],
+	  "instructions" : "Conheça melhor sua classificação neste <a href='http://assexualidade.forumeiros.com/t843-lithromanticos'>link.</a>",
+	  "partialResult" : "",
+	  "id" : 37,
+	  "proxNodeId": 0
 	}
 	];
 
@@ -342,7 +423,8 @@
 	  }
 
 	  //Carregar questão
-	  questionContainer.innerHTML = (currentQuestion + 1) + ") " + quiz[q].question;
+	  //questionContainer.innerHTML = (currentQuestion + 1) + ") " + quiz[q].question;
+	  questionContainer.innerHTML = quiz[q].question;
 	  
 	  //Carregar alternativas
 	  choicesContainer.innerHTML = choicesHtml;
@@ -353,7 +435,7 @@
 	  //Primeira vez
 	  if (currentQuestion == 0) {
 		//partialResultContainer.textContent = "Responda à primeira questão para ir para a segunda. ;)";
-		submitBtn.textContent = "Enviar resposta";
+		submitBtn.textContent = "Ok";
 	  }
 	}
 
@@ -396,7 +478,7 @@
 	  } else { //Próxima questão
 		
 		askingQuestion = true; //Próxima questão
-		submitBtn.textContent = "Enviar resposta"; //Mudar texto do botão
+		submitBtn.textContent = "Ok"; //Mudar texto do botão
 		//Se não acabou o quiz, vamos para a próxima pergunta
 		if (!theEnd) {
 		  currentQuestion++;
@@ -409,7 +491,7 @@
 
 	function showFinalResults() {
 	  content.innerHTML = "<h2>Você completou o Quiz!</h2>"+
-		"<p>Se você encontrou algum problema, por favor me envie a seguinte sequência: " + partialResult + ".</p>";
+		"<p>Se você encontrou algum problema, por favor nos envie a seguinte sequência: " + partialResult + " (repare que estas são as suas respostas).</p>";
 	}
 
 	window.addEventListener("load", askQuestion, false);
