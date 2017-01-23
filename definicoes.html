@@ -114,7 +114,7 @@
 	  "question": "Para começarmos, considere as seguintes afirmações: <br />"+ 
 	  "a. 'A assexualidade é uma doença, e não uma orientação sexual possível a indivíduos saudáveis.'<br />"+ 
 	  "b. 'Assexual só é aquele que nunca fez sexo.'<br />"+  
-      "c. 'Pessoas assexuais não se masturbam.<br />"+  
+      "c. 'Pessoas assexuais não se masturbam.'<br />"+  
       "d. 'Sexo é impuro e sujo e/ou uma sociedade melhor seria aquela que ninguém fizesse sexo.'<br />"+  
       "Agora escolha a opção com que você mais concorda referente às afirmações acima:",
 	  "choices": ["Concordo com todas estas afirmações. ", "Concordo com algumas destas, como a (a), mas não todas.", "Concordo absolutamente em nada com a afirmação (a), mas tenho dúvidas quanto a (b) e (c) e concordo parcial ou completamente com (d).", "Concordo apenas com as afirmações (b) e (c). ", "Não concordo com absolutamente nenhuma afirmação."],
@@ -125,14 +125,14 @@
 	}, {
 	  "question": "Considerando suas experiências pessoais, para você, por que um assexual não faria sexo?",
 	  "choices": ["Porque sexo é algo completamente primitivo e/ou frustrante, e assexualidade é algo superior a isso. ","Porque é errado e inadequado e/ou porque ele nunca se apaixona ou viveu uma relação antes. ","Porque ele não tem desejo sexual (libido), e só por isso. ", "Porque ele não sente atração sexual, e só por isso.", "Porque ele não tem desejo sexual e não sente atração sexual."],
-	  "instructions" : "Desejo sexual é diferente de atração sexual. Uma prova disto é que assexuais podem se masturbar e, inclusive, se interessar por pornografia.<br />A libido sexual não define sexualidade ou assexualidade. Baixa libido é um problema de saúde, e um médico deve ser consultado caso ela cause perturbação.<br />Atração sexual é o que leva uma pessoa querer fazer sexo com outra(a).",
+	  "instructions" : "Desejo sexual é diferente de atração sexual. Uma prova disto é que assexuais podem se masturbar e, inclusive, se interessar por pornografia.<br />A libido sexual não define sexualidade ou assexualidade. Baixa libido é um problema de saúde, e um médico deve ser consultado caso ela cause perturbação.<br />Atração sexual é o que leva uma pessoa querer fazer sexo com outra(s).",
 	  "partialResult" : "",
 	  "id" : 2,
 	  "proxNodeId": [10, 4, 23, 3, 3]
 	}, {
 	  "question": "Você sente ou já sentiu atração sexual? ",
 	  "choices": ["Sim, sempre.", "Não, nunca.", "Sim, às vezes.", "Sim e não, depende do meu envolvimento com a pessoa, como por exemplo se eu a conheço há um (bom) tempo."],
-	  "instructions" : "Atração sexual: é o que leva uma pessoa querer fazer sexo com outra(a).",
+	  "instructions" : "Atração sexual: é o que leva uma pessoa querer fazer sexo com outra(s).",
 	  "partialResult" : "",
 	  "id" : 3,
 	  "proxNodeId": [12, 5, 6, 7]
@@ -314,7 +314,7 @@
 	  "instructions" : "",
 	  "partialResult" : "",
 	  "id" : 28,
-	  "proxNodeId": [32,31,32]
+	  "proxNodeId": [32,38,32]
 	},{
 	  "question": " Se algum dia lhe surgisse uma pessoa 'tudo a ver' contigo, você consideraria namorar essa pessoa? Você se identifica completamente com qual dos textos abaixo?<br />"+
 	  "1. Pessoa que (também) vive bem sem atração ou ligação romântica com outras pessoas. <br />"+ 
@@ -383,7 +383,14 @@
 	  "partialResult" : "",
 	  "id" : 37,
 	  "proxNodeId": 0
-	}
+	},{
+          "question": "Você já passou por períodos que sentia que não gostaria de se relacionar com alguém? Se sim, você se identifica completamente com o texto abaixo? <br />'Pessoa que apaixona-se, mas que quando é correspondida o desejo de se relacionar acaba.'<br />Responda a alternativa que responda, na ordem, às duas perguntas.",
+          "choices": ["Sim e sim.","Sim e não.","Não e não."],
+          "instructions" : "",
+          "partialResult" : "",
+          "id" : 38,
+          "proxNodeId": [37,34,33]
+          }
 	];
 
 
